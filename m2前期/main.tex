@@ -35,7 +35,7 @@
 \newtheorem{thm}{定理}
 \newtheorem{prop}[thm]{命題}
 \newtheorem{cor}[thm]{系}
-\newtheorem*{prf}{証明}
+\newtheorem*{prf}{証明の概略}
 \newtheorem{lem}[thm]{補題}
 \newtheorem*{ex}{例}
 \newtheorem*{re}{注意}
@@ -51,8 +51,12 @@
 %
 \section{少人数クラス内容報告(中間まとめ)}
   本報告書では, 参考文献\cite{b1}の第1章から第3章を参考に, 鏡映, ルート系, ワイル群, weight lattice, Kashiwara crystalについて説明する.
-  鏡映, ルート系, weight latticeはKashiwara crystalの定義において必要な役割を果たす概念である. Kashiwara crystalは, 数理物理学や組合せ論, 数論など様々な分野で使われる
-  概念である. 本報告書では, tableauを用いたcrystalを説明する. これは, リー代数に関連するcrystalの一例である. 
+  Kashiwara crystalは, ルート系, 単純正ルート, weight latticeと呼ばれるものに関連付けられた代数的構造であり, 数理物理学や組合せ論, 数論など様々な分野で使われる概念である. 
+  特に, 表現論において複雑な量子群の表現を簡潔に理解するための強力なツールである. Kashiwara crystalは, weight写像, Kashiwara作用素, string lengthと呼ばれる写像を伴った集合である.
+
+  本報告書では, 始めにKashiwara crystalの理解に必要な概念である鏡映, ルート系, weight latticeを説明する. その後, Kashiwara crystalを定義し, 性質を述べる. 
+  最後に, crystal準同型, テンソル積と呼ばれる概念を説明した後, それらを用いてtableauを用いたcrystalを説明する. 
+  この際, 1行からなる tableauのcrystalを考え, それを利用して一般のtableauのcrystalを説明する. tableauのcrystalは, リー代数に関連するcrystalの一例である. 
   \begin{center} \textbf{[使用記号について]} \end{center}
 
   $\mathbb{R}$ : 実数全体, $\mathbb{Z}$ : 整数全体を表す.
@@ -79,7 +83,7 @@
   \alpha^{\vee} = \frac{2 \alpha}{\langle \alpha, \alpha \rangle} = \frac{2 (1, 0)}{1^2 + 0^2} = (2, 0)
   \]
 
-  任意の $x = (x_1, x_2) \in \mathbb{R}^2$ に対する鏡映 $r_\alpha(x)$は次の通りである.
+  任意の $x = (x_1, x_2) \in \mathbb{R}^2$ に対する鏡映 $r_\alpha(x)$ は次の通りである.
   \[
   \begin{aligned}
     r_\alpha(x) &= x - \langle x, \alpha^{\vee} \rangle \alpha \\
@@ -88,16 +92,18 @@
     &= (-x_1, x_2)
   \end{aligned}
   \]
-  この鏡映は$x$ を $y$ 軸に関して反転させる操作になる.
+  この鏡映は $x$ を $y$ 軸に関して反転させる操作になる.
 \end{ex}
+
+鏡映は以下の性質を持つ.
 
 \begin{prop}[{\cite[5章2節命題2, 5章3節]{b3}}] 
   鏡映 $r_\alpha: V \to V $ に対して, 次が成り立つ. 
   \begin{enumerate} 
     \item $r_\alpha^2 = 1$ \quad (ただし, $1$ は恒等写像)
-    \item $ \langle \alpha, \alpha^{\vee} \rangle = 2 $で, $r_\alpha(\alpha) = - \alpha$
-    \item $V$ は $ \ker(r_\alpha - 1) \oplus \ker(r_\alpha + 1)$ と分解できる. $\ker(r_\alpha + 1)$ は$\alpha$を基底に持つ1次元空間である. 
-    $ \ker(r_\alpha - 1)$は, $\alpha$に垂直な超平面である. 
+    \item $ \langle \alpha, \alpha^{\vee} \rangle = 2 $ で, $r_\alpha(\alpha) = - \alpha$
+    \item $V$ は $ \ker(r_\alpha - 1) \oplus \ker(r_\alpha + 1)$ と分解できる. $\ker(r_\alpha + 1)$ は $\alpha$ を基底に持つ1次元空間である. 
+    $\ker(r_\alpha - 1) $は, $\alpha$ に垂直な超平面である. 
     \item $\langle r_\alpha(x), r_\alpha(y) \rangle = \langle x, y \rangle $
   \end{enumerate}
 \end{prop}
@@ -110,21 +116,21 @@
 \begin{df} 
   $V$上のルート系$\Phi$を以下を満たす有限集合とする.
   \begin{enumerate}
-    \item $ 0 \notin V , \emptyset \neq V $
+    \item $ 0 \notin \Phi , \Phi \neq \emptyset $
     \item $ r_\alpha (\Phi) = \Phi \quad ( \alpha \in \Phi )$
     \item $ \langle \alpha, \beta^{ \vee } \rangle \in \mathbb{Z} \quad ( \alpha, \beta \in \Phi )$
-    \item $ \beta \in \Phi $が$ \alpha \in \Phi $の倍数なら, $ \beta = \pm \alpha $
+    \item $ \beta \in \Phi $が$ \alpha \in \Phi $のスカラー倍なら, $ \beta = \pm \alpha $
   \end{enumerate}
-  このとき, $ \Phi $の元をルートという. \\
-  また, $ \Phi^{ \vee } = \{ \alpha^{ \vee } \mid \alpha \in \Phi \} $の元をコルートという.
+  このとき, $ \Phi $ の元をルートという. \\
+  また, $ \Phi^{ \vee } = \{ \alpha^{ \vee } \mid \alpha \in \Phi \} $ の元をコルートという.
 \end{df}
 
 \begin{ex}
   \begin{enumerate}
     \item[]
-    \item $V = \mathbb{R}^3$とする. $\Phi = \{ (\pm1, 0, 0) \}$はルート系である.
-    \item $V = \mathbb{R}^2$とする. $\Phi = \{ (\pm \frac{1}{\sqrt{2}}, \pm \frac{1}{\sqrt{2}}) \}$はルート系である.
-    このとき, $ \Phi^{\vee} = \left\{ (\pm \sqrt{2}, \pm \sqrt{2})\right\} $である.
+    \item $V = \mathbb{R}^3$ とする. $\Phi = \{ (\pm1, 0, 0) \}$ はルート系である.
+    \item $V = \mathbb{R}^2$ とする. $\Phi = \{ (\pm \frac{1}{\sqrt{2}}, \pm \frac{1}{\sqrt{2}}) \}$ はルート系である.
+    このとき, $ \Phi^{\vee} = \left\{ (\pm \sqrt{2}, \pm \sqrt{2})\right\} $ である.
   \end{enumerate}
 \end{ex}
 
@@ -140,94 +146,103 @@
 \begin{df}  
   \begin{enumerate} 
     \item[]
-    \item $ \Phi $が可約であるとは, $ \Phi = \Phi_1 \cup \Phi_2 $で,任意の$ x \in \Phi_1, y \in \Phi_2 $で,
-    $ \langle x, y \rangle = 0 $となるルート系$ \Phi_1, \Phi_2  $が存在するときをいう.
-    \item $ \Phi $が既約(または, 単純)であるとは, $ \Phi $が可約ではないときをいう.
-    \item $ \Phi $がsimply-lacedであるとは, 全てのルートの長さが同じであるときをいう.
+    \item $ \Phi $が可約であるとは, $ \Phi = \Phi_1 \cup \Phi_2 $ で,任意の $ x \in \Phi_1, y \in \Phi_2 $ で,
+    $ \langle x, y \rangle = 0 $ となるルート系 $ \Phi_1, \Phi_2 $ が存在するときをいう.
+    \item $ \Phi $ が既約(または, 単純)であるとは, $ \Phi $ が可約ではないときをいう.
+    \item $ \Phi $ がsimply-lacedであるとは, 全てのルートの長さが同じであるときをいう.
   \end{enumerate} 
 \end{df}
 
 \begin{ex}
   \begin{enumerate}
     \item[]
-    \item $ V = \mathbb{R}^2$とする.$ \Phi = \{ (\pm 1, 0), (0, \pm1) \}$は可約なルート系である.実際,
-    $ \Phi_1 = \{ (\pm 1, 0)\}$, $ \Phi_2 = \{ (0, \pm 1)\}$と分けられる.
-    \item $ V = \mathbb{R}^2$とする. $ \Phi = \{ (\pm \sqrt{2}, 0), (0, \pm\sqrt{2}), (\pm\sqrt{2}, \pm \sqrt{2}) \}$は
-    $(\sqrt{2}, 0)$の長さが$\sqrt{2}$, $(\sqrt{2}, \sqrt{2})$の長さが2であるから, simply-lacedでないルート系になる.
+    \item $ V = \mathbb{R}^2$ とする. $ \Phi = \{ (\pm 1, 0), (0, \pm1) \}$ は可約なルート系である. 実際,
+    $ \Phi_1 = \{ (\pm 1, 0)\}$, $ \Phi_2 = \{ (0, \pm 1)\}$ と分けられる.
+    \item $ V = \mathbb{R}^2$ とする. $ \Phi = \{ (\pm \sqrt{2}, 0), (0, \pm\sqrt{2}), (\pm\sqrt{2}, \pm \sqrt{2}) \}$ は
+    $(\sqrt{2}, 0)$ の長さが $\sqrt{2}$, $(\sqrt{2}, \sqrt{2})$ の長さが2であるから, simply-lacedでないルート系になる.
   \end{enumerate}
 \end{ex}
 
 \begin{df}
   $\Phi$と交わらない原点を通る超平面を固定する. 
   \begin{enumerate}
-    \item この超平面にある1つの側にあるルートを正ルート, もう1つの側にあるルートを負ルートとよぶ.
-    \item 正ルート全体を$ \Phi^{+} $, 負ルート全体を$ \Phi^{-} $で表す. 
-    \item $\alpha \in \Phi^{+} $が単純であるとは, $\alpha$が他の正ルートの和で表せないときをいう.
+    \item この超平面に関して1つの側にあるルートを正ルート, もう1つの側にあるルートを負ルートとよぶ.
+    \item 正ルート全体を$ \Phi^{+} $, 負ルート全体を $ \Phi^{-} $ で表す. 
+    \item $\alpha \in \Phi^{+} $ が単純であるとは, $\alpha$ が他の正ルートの和で表せないときをいう.
   \end{enumerate}
 \end{df}
 
 \begin{ex}
-  $ V = \mathbb{R}^2$とする. $ \Phi = \{ (\pm \sqrt{2}, 0), (0, \pm\sqrt{2}), (\pm\sqrt{2}, \pm\sqrt{2}) \}$とする. \\
+  $ V = \mathbb{R}^2$ とする. $ \Phi = \{ (\pm \sqrt{2}, 0), (0, \pm\sqrt{2}), (\pm\sqrt{2}, \pm\sqrt{2}) \}$ とする. \\
   例えば, $\Phi^{+} = \{ ( \sqrt{2}, 0), (0, \sqrt{2}), (\sqrt{2}, \sqrt{2}), (-\sqrt{2}, \sqrt{2}) \}$, \\
-  $\Phi^{-} = \{ ( -\sqrt{2}, 0), (0, -\sqrt{2}), (\sqrt{2}, -\sqrt{2}), (-\sqrt{2}, -\sqrt{2}) \}$と分けられる.  \\
-  このとき, 単純な正ルート全体は,  $\{ ( \sqrt{2}, 0), (0, \sqrt{2}) \}$や$ \{ (\sqrt{2}, \sqrt{2}), (-\sqrt{2}, \sqrt{2}) \}$などとして,
+  $\Phi^{-} = \{ ( -\sqrt{2}, 0), (0, -\sqrt{2}), (\sqrt{2}, -\sqrt{2}), (-\sqrt{2}, -\sqrt{2}) \}$ と分けられる.  \\
+  このとき, 単純な正ルート全体は,  $\{ ( \sqrt{2}, 0), (0, \sqrt{2}) \}$ や $ \{ (\sqrt{2}, \sqrt{2}), (-\sqrt{2}, \sqrt{2}) \}$ などとして,
   取れる.
 \end{ex}
 
 \begin{re}
-  正ルートや単純な正ルートの定め方は, 一意に定まらない. 一つ固定して考える.
+  正ルートや単純な正ルートの定め方は一意的ではない. 一つ固定して考える.
 \end{re}
 
 \begin{prop} [{\cite[命題2.1]{b1}}, {\cite[命題20.1]{b2}}] 
   $\Sigma$を単純な正ルートのなす集合とする.
   \begin{enumerate} 
-    \item $\Sigma$の元は,線型独立.
-    \item $\alpha \in \Sigma, \beta \in \Phi^{+}$なら, $\alpha = \beta$または$r_{\alpha}(\beta) \in \Phi^{+}$
-    \item $\alpha, \beta \in \Sigma $で, $\alpha \neq \beta $なら, $ \langle \alpha, \beta \rangle \leq 0 $
-    \item 任意の$\alpha \in \Phi^{+}$は
+    \item $\Sigma$ の元は,線型独立である.
+    \item $\alpha \in \Sigma, \beta \in \Phi^{+}$ なら, $\alpha = \beta$ または $r_{\alpha}(\beta) \in \Phi^{+}$
+    \item $\alpha, \beta \in \Sigma $ で, $\alpha \neq \beta $ なら, $ \langle \alpha, \beta \rangle \leq 0 $
+    \item 任意の $\alpha \in \Phi^{+}$ は
     $$ \alpha = \sum_{ \beta \in \Sigma} n_{\beta} \beta \quad (n_{\beta} \geq 0, n_{\beta} \in \mathbb{Z}) $$
   \end{enumerate}
 \end{prop}
 
-\begin{df}
-  $I = \{ 1, 2, \cdots, r \}$を添字集合とし, $\Sigma = \{ \alpha_i \mid i \in I \}$とする. \\
-  $ i \in I $に対し, この鏡映を$s_i$で表す.これを単純鏡映という.
+\begin{prf}
+  $\Sigma ' \subset \Phi$ を $\Phi^{+}$ の任意の元が $\Sigma '$ の非負係数の線形和で表すことができる性質を持つ
+  極小な集合とする. このとき, $\Sigma ' = \Sigma$ を示す. さらに, $\Sigma '$ に対して, この命題が成り立つことを示す.
+\end{prf}
+
+\begin{df} 
+  $I = \{ 1, 2, \cdots, r \}$ を添字集合とし, $\Sigma = \{ \alpha_i \mid i \in I \}$ とする. \\
+  $ i \in I $ に対し, この鏡映を $s_i$ で表す.これを単純鏡映という.
 \end{df}
 
 \begin{prop} [{\cite[命題2.2]{b1}}]
-  $ i \in I, \alpha \in \Phi^{+}$とする. このとき,
-  $\alpha = \alpha_i$か$s_i(\alpha) \in \Phi^{+}$のいずれかである. 
-  よって, $s_i$は$\Phi^{+} \backslash \{ \alpha_i\} $上を置換する.
+  $ i \in I, \alpha \in \Phi^{+}$ とする. このとき,
+  $\alpha = \alpha_i$か$s_i(\alpha) \in \Phi^{+}$ のいずれかである. 
+  よって, $s_i$ は $\Phi^{+} \backslash \{ \alpha_i\}$ 上を置換する.
 \end{prop}
 
+\begin{prf}
+  命題3の2から示すことができる.
+\end{prf}
+
 \begin{df}
-  $W = \langle r_\alpha \mid \alpha \in \Phi \rangle $を$\Phi$のワイル群という.
+  $W = \langle r_\alpha \mid \alpha \in \Phi \rangle $ を $\Phi$ のワイル群という.
 \end{df}
 
 \begin{prop} [{\cite[命題2.3]{b1}}]
-  $\{ s_i \mid i \in I \}$は$W$の生成系である. 
+  $\{ s_i \mid i \in I \}$ は $W$ の生成系である. 
 \end{prop}
 
 \begin{ex}
-  $V = \mathbb{R}^2, \Phi = \{ (\pm 1, 0), (0, \pm 1) \}$とする. \\
-  $r_{ (1, 0)} =(x, y) = (-x, y), r_{ (0 ,1)} =(x, y) = (x, -y)$である.
-  $r_{ (1, 0)} \circ r_{ (0 ,1)}(x, y) = r_{ (0, 1)} \circ r_{ (1 ,0)}(x, y) = (-x, -y)$となる.
+  $V = \mathbb{R}^2, \Phi = \{ (\pm 1, 0), (0, \pm 1) \}$ とする. \\
+  $r_{ (1, 0)} = (x, y) = (-x, y), r_{ (0 ,1)} =(x, y) = (x, -y)$ である.
+  $r_{ (1, 0)} \circ r_{ (0 ,1)}(x, y) = r_{ (0, 1)} \circ r_{ (1 ,0)}(x, y) = (-x, -y)$ となる.
   これらの元は全て位数２である.よって, 
   $$ W = \{ 1, r_{ (1, 0)}, r_{ (0 ,1)}, r_{ (1, 0)} \circ r_{ (0 ,1)} \}$$
-  であり, $C_2 \times C_2 $(ただし, $C_2$は位数2の巡回群)に群同型である.
+  であり, $C_2 \times C_2 $ (ただし, $C_2$ は位数2の巡回群)に群同型である.
 \end{ex}
 
 \subsection{weight lattice}
-  この節では, weight latticeについて定義する. latticeとは, 自由$\mathbb{Z}$加群のことである.
+  この節では, weight latticeについて定義する. latticeとは, 自由 $\mathbb{Z}$ 加群のことである.
   weight latticeとは, ルート系を基にした広がりを持つ空間である. 
 \bigskip
 
 \begin{df}
-  $\Phi$を$V$におけるルート系とする. \\
-  weight latticeとは, $V$を生成するlattice $\Lambda$ で以下を満たすときをいう.
+  $\Phi$ を $V$ におけるルート系とする. \\
+  weight latticeとは, $V$ を生成するlattice $\Lambda$ で以下を満たすときをいう.
   \begin{enumerate}
     \item $\Phi \subset \Lambda $
-    \item 任意の$ \lambda \in \Lambda, \alpha \in \Phi $で, $ \langle \lambda, \alpha^{ \vee } \rangle \in \mathbb{Z} $
+    \item 任意の $ \lambda \in \Lambda, \alpha \in \Phi $ で, $ \langle \lambda, \alpha^{ \vee } \rangle \in \mathbb{Z} $
   \end{enumerate}
   この元をweightという.
 \end{df}
@@ -235,49 +250,49 @@
 \begin{df}
   \begin{enumerate}
     \item[]
-    \item weight latticeが半単純であるとは, $\Phi$が$V$を張るときをいう.
-    \item root lattice $\Lambda_{ root }$を$\Phi$によって張られたlatticeとする.
+    \item weight latticeが半単純であるとは, $\Phi$ が $V$ を張るときをいう.
+    \item root lattice $\Lambda_{ root }$ を $\Phi$ によって張られたlatticeとする.
   \end{enumerate}
 \end{df}
 
 \begin{ex}
   \begin{enumerate}
     \item[]
-    \item $V = \mathbb{R}^3$, $\Phi = \{ (\pm1, 0, 0) \}$とする. $\Lambda = \mathbb{Z}^3$はweight latticeになる.
-          $\Phi$は$V$を張らないので, 半単純ではない. また, $\Lambda_{ root } = \{ (x, 0 , 0) \mid x \in \mathbb{Z} \}$である.
-    \item $V = \mathbb{R}^2, \Phi = \{ (\pm \sqrt{2}, \pm \sqrt{2}) \}$とする. $\Lambda = \{  (\alpha \sqrt{2}, \beta \sqrt{2}) \mid \alpha, \beta \in \mathbb{Z} \}$はweight latticeになる.
-          $\Lambda$は半単純である. また, $\Lambda_{ root } = \{  (\alpha \sqrt{2}, \beta \sqrt{2}) \mid \alpha, \beta \in \mathbb{Z}, \text{かつ} \ \alpha, \beta \text{ は同じ偶奇性を持つ }\}$である.
+    \item $V = \mathbb{R}^3$, $\Phi = \{ (\pm1, 0, 0) \}$ とする. $\Lambda = \mathbb{Z}^3$ はweight latticeになる.
+          $\Phi$ は $V$ を張らないので, 半単純ではない. また, $\Lambda_{ root } = \{ (x, 0 , 0) \mid x \in \mathbb{Z} \}$ である.
+    \item $V = \mathbb{R}^2, \Phi = \{ (\pm \sqrt{2}, \pm \sqrt{2}) \}$ とする. $\Lambda = \{  (\alpha \sqrt{2}, \beta \sqrt{2}) \mid \alpha, \beta \in \mathbb{Z} \}$ はweight latticeになる.
+          $\Lambda$ は半単純である. また, $\Lambda_{ root } = \{  (\alpha \sqrt{2}, \beta \sqrt{2}) \mid \alpha, \beta \in \mathbb{Z}, \text{かつ} \ \alpha, \beta \text{ は同じ偶奇性を持つ }\}$ である.
   \end{enumerate}
 \end{ex}
 
 \begin{df}
   \begin{enumerate}
     \item []
-    \item $\Lambda$上に順序 $\lambda \geq \mu$ を
+    \item $\Lambda$ 上に順序 $\lambda \geq \mu$ を
       $$ \lambda - \mu = \sum_{i \in I} c_i \alpha_i \quad ( c_i \geq 0 ) $$
       と定める.
     \item $\lambda^{+} = \{ \lambda \mid \langle \lambda, \alpha_i^{\vee} \rangle \geq 0 \quad (i \in I) \}$ とし, この元を dominant weight という.
     \item $\lambda$が $\langle \lambda, \alpha_i^{\vee} \rangle > 0 \quad (i \in I)$ ならば, strictly dominant weight という.
-    \item $\bar{\omega_i}$ が fundamental weight であるとは, $\langle \bar{\omega_i}, \alpha_j^{\vee} \rangle = \delta_{i, j}$
+    \item $\varpi_i$ が fundamental weight であるとは, $\langle \varpi_i, \alpha_j^{\vee} \rangle = \delta_{i, j}$
     であるときをいう. \ (ただし, $\delta_{i, j}$はクロネッカーのデルタを表す. )
   \end{enumerate}
 \end{df}
 
 \begin{ex}
-  $V = \mathbb{R}^2, \Phi = \{ (\pm \sqrt{2}, \pm \sqrt{2})\}, \Sigma = \{ ( \sqrt{2}, \sqrt{2}), ( \sqrt{2}, - \sqrt{2})\}, \Lambda = \{  (\alpha \sqrt{2}, \beta \sqrt{2}) \mid \alpha, \beta \in \mathbb{Z} \}$とする.
+  $V = \mathbb{R}^2, \Phi = \{ (\pm \sqrt{2}, \pm \sqrt{2})\}, \Sigma = \{ ( \sqrt{2}, \sqrt{2}), ( \sqrt{2}, - \sqrt{2})\}, \Lambda = \{  (\alpha \sqrt{2}, \beta \sqrt{2}) \mid \alpha, \beta \in \mathbb{Z} \}$ とする.
   \begin{enumerate}
-    \item $(12 \sqrt{2}, -2 \sqrt{2}) \geq (4 \sqrt{2}, 2 \sqrt{2})$である. 実際, $(12 \sqrt{2}, -2 \sqrt{2}) - (4 \sqrt{2}, 2 \sqrt{2}) = 2 ( \sqrt{2}, \sqrt{2}) + 6 ( \sqrt{2}, - \sqrt{2})$である.
-    \item $(\alpha \sqrt{2}, \beta \sqrt{2}) \ ( \text{ ただし, }\alpha, \beta \in \mathbb{Z} )$がdominat weightとなる$\alpha, \beta$の必要十分条件を考える.
-    まず, $( \sqrt{2}, \sqrt{2})^{ \vee } = ( \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}), ( \sqrt{2}, - \sqrt{2})^{ \vee } = ( \frac{1}{\sqrt{2}}, - \frac{1}{\sqrt{2}})$であるから,
-    $\langle (\alpha \sqrt{2}, \beta \sqrt{2}) ,( \sqrt{2}, \sqrt{2})^{ \vee } \rangle = \alpha + \beta \geq 0$, $\langle (\alpha \sqrt{2}, \beta \sqrt{2}) ,( \sqrt{2}, - \sqrt{2})^{ \vee } \rangle = \alpha - \beta \geq 0$である.
-    よって, $\alpha \geq | \beta | $であることがわかる.
-    \item $(\frac{1}{2}\sqrt{2}, \frac{1}{2}\sqrt{2}), (\frac{1}{2}\sqrt{2}, - \frac{1}{2}\sqrt{2})$はfundamential weightである.
-    この例では, fundamential weightが$\Lambda$の元でない.
+    \item $(12 \sqrt{2}, -2 \sqrt{2}) \geq (4 \sqrt{2}, 2 \sqrt{2})$である. 実際, $(12 \sqrt{2}, -2 \sqrt{2}) - (4 \sqrt{2}, 2 \sqrt{2}) = 2 ( \sqrt{2}, \sqrt{2}) + 6 ( \sqrt{2}, - \sqrt{2})$ である.
+    \item $(\alpha \sqrt{2}, \beta \sqrt{2}) \ ( \text{ ただし, }\alpha, \beta \in \mathbb{Z} )$ がdominat weightとなる $\alpha, \beta$ の必要十分条件を考える.
+    まず, $( \sqrt{2}, \sqrt{2})^{ \vee } = ( \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}), ( \sqrt{2}, - \sqrt{2})^{ \vee } = ( \frac{1}{\sqrt{2}}, - \frac{1}{\sqrt{2}})$ であるから,
+    $\langle (\alpha \sqrt{2}, \beta \sqrt{2}) ,( \sqrt{2}, \sqrt{2})^{ \vee } \rangle = \alpha + \beta \geq 0$, $\langle (\alpha \sqrt{2}, \beta \sqrt{2}) ,( \sqrt{2}, - \sqrt{2})^{ \vee } \rangle = \alpha - \beta \geq 0$ である.
+    よって, $\alpha \geq | \beta | $ であることがわかる.
+    \item $(\frac{1}{2}\sqrt{2}, \frac{1}{2}\sqrt{2}), (\frac{1}{2}\sqrt{2}, - \frac{1}{2}\sqrt{2})$ はfundamential weightである.
+    この例では, fundamential weightが $\Lambda$ の元でない.
   \end{enumerate} 
 \end{ex}
 
 \begin{re}
-  $\Lambda$が半単純のとき, fundamential weightが生成するlatticeを$\Lambda_{sc}$で表す. 上記の例では,
+  $\Lambda$が半単純のとき, fundamential weightが生成するlatticeを $\Lambda_{sc}$ で表す. 上記の例では,
   $$ \Lambda_{sc} \supsetneq \Lambda \supsetneq \Lambda_{root}$$
   である.
 \end{re}
@@ -290,8 +305,8 @@
   これは既約で, simply-laced である. このとき, 単純な正ルート全体は $\Sigma = \{ \alpha_i = e_i - e_{i+1} \mid 1 \leq i \leq r \}$ となる. \\
   weight latticeは $\Lambda = \mathbb{Z}^{r+1}$ とする. これは半単純ではない. \\
   $\lambda = (\lambda_1, \lambda_2, \cdots, \lambda_{r+1})$ が dominant であることと $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_{r+1}$
-  が成り立つことは必要十分である. また, fundamental weight は $\bar{\omega}_i = e_1 + e_2 + \cdots + e_i$ である. \\
-  この$\Lambda, \Phi$を$GL(r+1)$ weight lattice, ルート系という. これらをCartan型$A_r$の$GL(r+1)$バージョンであるという.
+  が成り立つことは必要十分である. また, fundamental weight は $\varpi_i = e_1 + e_2 + \cdots + e_i$ である. \\
+  この $\Lambda, \Phi$ を$GL(r + 1)$ weight lattice, ルート系という. これらをCartan型 $A_r$ の $GL(r + 1)$バージョンであるという.
 \end{ex}
 
 
@@ -303,20 +318,22 @@
 Kashiwara crystalは, crystal graphという図式的な表現を通じて, 視覚化をすることができる. 以降, 単にcrystalと言えば, Kashiwara crystalを指すものとする.
 \\
 
-$\mathbb{Z} \cup \{ - \infty \} $に $- \infty < n \ ( n \in \mathbb{Z} ) $と順序を入れ, $ - \infty + n = - \infty \ ( n \in \mathbb{Z} ) $
+$\mathbb{Z} \cup \{ - \infty \} $に $- \infty < n \ ( n \in \mathbb{Z} ) $ と順序を入れ, $ - \infty + n = - \infty \ ( n \in \mathbb{Z} ) $
 と定義する. また, $ [n] = \{ 1, 2, \cdots , n \} $とする.
 
 \begin{df}
-  添字集合 $I$ をともなったルート系 $\Phi$ と weight lattice $\Lambda$ を固定する.
-  タイプ $\Phi$ の Kashiwara crystal は次の写像をともなった空でない集合 $\mathscr{B}$ である.
+  ルート系 $\Phi$, その単純な正ルートの添字集合 $I$ と weight lattice $\Lambda$ を固定する.
+  すなわち, 単純な正ルートは $\alpha_i \ ( i \in I )$ と表せるとする.
+  タイプ $\Phi$ の Kashiwara crystal とは, 空でない集合 $\mathscr{B}$ で, 次の(A1), (A2)
+  をみたす写像
   \begin{enumerate}
     \item $e_i, f_i : \mathscr{B} \to \mathscr{B} \sqcup \{ 0 \}$
     \item $\epsilon_i, \phi_i : \mathscr{B} \to \mathbb{Z} \sqcup \{ - \infty \}$
     \item $\mathrm{wt} : \mathscr{B} \to \Lambda$
   \end{enumerate}
-  で, 次の(A1), (A2)を満たす.
+  が与えられたものである.
   \begin{enumerate}
-    \item [(A1)] 任意の$x, y \in \mathscr{B}$に対し, $e_i(x) = y $であることと, $f_i(y) = x $であることは必要十分条件である.
+    \item [(A1)] 任意の $x, y \in \mathscr{B}$ に対し, $e_i(x) = y $ であることと, $f_i(y) = x $ であることは必要十分条件である.
     このとき, 
     \begin{enumerate}
       \item [] $\mathrm{wt}(y) = \mathrm{wt}(x) + \alpha_i$
@@ -326,7 +343,7 @@ $\mathbb{Z} \cup \{ - \infty \} $に $- \infty < n \ ( n \in \mathbb{Z} ) $と�
     が成り立つ.
     \item [(A2)] $\phi_i(x) = \langle \mathrm{wt}(x), \alpha_i ^{ \vee } \rangle + \epsilon_i(x) $
     が成り立つ.\\
-    特に, $\Phi_i(x) = - \infty$なら, $\epsilon_i(x) = - \infty $である.このとき, $e_i(x) = f_i(x) = 0$を仮定する.
+    特に, $\Phi_i(x) = - \infty$ なら, $\epsilon_i(x) = - \infty $ である.このとき, $e_i(x) = f_i(x) = 0$ を仮定する.
   \end{enumerate}
 \end{df}
 
@@ -334,40 +351,59 @@ $\mathbb{Z} \cup \{ - \infty \} $に $- \infty < n \ ( n \in \mathbb{Z} ) $と�
   \begin{enumerate}
     \item crystal $\mathscr{B}$ の元の個数を次数という.
     \item 写像 $\mathrm{wt}$ をweight写像という.
-    \item $e_i, f_i$ をkashiwara(または, cryastal)作用素という.
+    \item $e_i, f_i$ をKashiwara(または, cryastal)作用素という.
     \item $\phi_i, \epsilon_i$ はstring lengthと呼ばれることもある.
-    \item $\phi_i, \epsilon_i$ が$- \infty $の値を取らないとき, $\mathscr{B}$は有限なタイプであるという.
+    \item $\phi_i, \epsilon_i$ が $- \infty $ の値を取らないとき, $\mathscr{B}$ は有限なタイプであるという.
     \item $\phi_i(x) = \max\{ k \in \mathbb{Z}_{\geq 0} \mid f_i^k(x) \neq 0 \}, \ \epsilon_i(x) = \max\{ k \in \mathbb{Z}_{\geq 0} \mid e_i^k(x) \neq 0 \}$ \\
-    が成り立つとき, $\mathscr{B}$はseminomarlという.
-    \item $\phi_i, \epsilon_i$ が非負の値を持つとき, $\mathscr{B}$はupper seminomarlであるという.
+    が成り立つとき, $\mathscr{B}$ はseminomarlという.
+    \item $\phi_i, \epsilon_i$ が非負の値を持つとき, $\mathscr{B}$ はupper seminomarlであるという.
     \item 任意の $i \in I$ で $e_i(u) = 0$ となる元 $u \in \mathscr{B}$ をhighest weight元という. このとき, $\mathrm{wt}(u)$ をhighest weightという.
   \end{enumerate}
 \end{df}
 
+以下, crystalに関する性質を紹介する.
+
 \begin{prop}[{\cite[補題2.14]{b1}}] 
   ルート系が半単純で, $\mathscr{B}$ が有限なタイプのcrystalと仮定する. このとき,
-  $$ \mathrm{wt}(x) = \sum_{ i \in I} (\varphi_i(x) - \varepsilon_i(x))\bar{\omega_i}$$
+  $$ \mathrm{wt}(x) = \sum_{ i \in I} (\varphi_i(x) - \varepsilon_i(x)) \varpi_i $$
   が成り立つ.
 \end{prop}
+
+\begin{prf}
+  $ \langle \mathrm{wt}(x) - \sum_{ i \in I} (\varphi_i(x) - \varepsilon_i(x)) \varpi_i, \alpha^{ \vee }_j \rangle = 0 $
+  を示す. 任意の単純な正ルートと直交することから, 命題を導くことができる. 
+\end{prf}
 
 \begin{prop}[{\cite[命題2.16]{b1}}] 
   $\mathscr{B}$ をseminomaralなcrystalとする. $u$ をhighest weight元とする. このとき, $\mathrm{wt}(u)$ はdominantである.
 \end{prop}
 
+\begin{prf}
+  背理法から導くことができる.
+\end{prf}
+
 \begin{prop}[{\cite[命題2.17]{b1}}] 
-  $\mathscr{B}$ をseminomaralなcrystalとする. $\mu, \nu \in \Lambda$ をワイル群のある元 $w$ で, $w(\mu) = \nu$ となる元とする.
+  $ \mathscr{B} $ を seminomaral な crystal とする. $ \mu, \nu \in \Lambda $ が $ w(\mu) = \nu $ を満たす元とする. 
+  ( ただし, $w$ はあるワイル群の元である. )
   このとき,  
-  \[
-  \{ u \mid \mathrm{wt}(u) = \mu \} = \{ u \mid \mathrm{wt}(u) = \nu \}
-  \]
-  が成り立つ.
+  $ \{ u \mid \mathrm{wt}(u) = \mu \} $ の元の個数と $ \{ u \mid \mathrm{wt}(u) = \nu \} $ の元の個数は一致する.
 \end{prop}
+
+\begin{prf}
+  $w$が単純鏡映のときにこの命題を示せば十分である. $ s_i(\mu) = \nu $ とする.
+  このとき, $\nu = \mu - \langle \mu, \alpha^{ \vee }_i \rangle \alpha_i $ であるから, 
+  $k =  \langle \mu, \alpha^{ \vee }_i \rangle$ は0ではない. 必要であれば, $\mu$ と $\nu$ を
+  入れ替えて, $ k > 0 $ とする.
+  次に, $X, Y$ をそれぞれ weight $\mu, \nu$ の $\mathscr{B}$ の元のなす集合とする.
+  $f_i^{k}$ が $X$ から $Y$ への全単射な集合であることを示すことで命題を導くことができる.
+\end{prf}
 
 \begin{df}
   \begin{enumerate}
     \item []
-    \item $\mathscr{B}$ をcrystalとする.このとき, $\mathscr{B}$ 上に頂点と $i \in I$ でラベル付けられた辺を持つ有向グラフを対応できる. 
-    $f_i(x) = y$ のとき, $ x \xrightarrow{i} y$ と書く.これを $\mathscr{B}$ のcrystal graphという.
+    \item $\mathscr{B}$ をcrystalとする.  $\mathscr{B}$ を頂点集合とし,  $f_i(x) = y$ のとき
+    ラベル$I$を持つ有効辺$ x \xrightarrow{i} y$ を引くことによって, 有向グラフを対応させることができる.
+    これを $\mathscr{B}$ のcrystal graphという.
     \item $\mathscr{B}$ 上に, $x$ と $y$ が $y = f_i(x)$ または $x = e_i(y)$ を満たすとき, $x \sim y$ という同値関係を定める.
   \end{enumerate}
 \end{df}
@@ -385,27 +421,8 @@ $\mathbb{Z} \cup \{ - \infty \} $に $- \infty < n \ ( n \in \mathbb{Z} ) $と�
       \vcenter{\hbox{\begin{ytableau} r \end{ytableau}}}
   \end{aligned}
   \]
-  $GL(r+1)$ weight latticeを使い, $\mathrm{wt} \left( \vcenter{\hbox{\begin{ytableau} i \end{ytableau}}} \right) = e_i$と定める.
-  さらに, seminomarlであるように$\varphi_i, \varepsilon_i$を定める. これを$\mathscr{B}_{(1)}$や$\mathbb{B}$で表す.
-\end{ex}
-
-\begin{ex}
-  $\Lambda = \mathbb{Z}^n, n = r+1$とする.
-  $\mathscr{B}_{(k)}$ を形 $(k)$ で, 各成分が $n$ 以下のsemistandard tableau全体とする. その元を$ R = \vcenter{\hbox{\begin{ytableau} j_1 & j_2 & \cdots & j_k \end{ytableau}}}$
-  \ (ただし, $j_1 \leq j_2 \leq \cdots \leq j_k \in [n]$)で表す. \\
-  $\mathrm{wt}(R) = (\mu_i, \mu_2, \cdots, \mu_n)$ \ (ただし, $\mu_i$は$R$の$i$の数)とする. 
-  さらに, $\varphi_i(R)$ を成分 $j_1, j_2, \cdots, j_k$ 上の $i$ の数, $\varepsilon_i(R)$ を成分 $j_1, j_2, \cdots, j_k$ 上の $i+1$ の数とする. \\
-  また, $\varphi_i(R) > 0$ なら, $f_i(R)$ を右端の $i$ を $i+1$ に変えて得られるtableau, そうでないなら, $f_i(R) = 0$ とする.
-  同様に, $\varepsilon_i(R) > 0$ なら, $e_i(R)$ を左端の $i+1$ を $i$ に変えて得られるtableau, そうでないなら, $f_i(R) = 0$ とする.\\
-  これにより, $\mathscr{B}_{(k)}$ はseminomarlなcrystalになる.
-\end{ex}
-
-\begin{ex}
-  $\Lambda = \mathbb{Z}^n, n = r+1$とする.
-  $\mathscr{B}_{(1^k)}$を形$(1^k)$で, 各成分が$n$以下のsemistandard tableau全体とする. その元を$ C =  ^{t} \vcenter{\hbox{\begin{ytableau} j_1 & j_2 & \cdots & j_k \end{ytableau}}}$
-  (ただし, $j_1 \leq j_2 \leq \cdots \leq j_k \in [n]$, $^{t}$は転置)で表す. \\
-  $\varphi_i(C)$を$C$の成分に$i$があり, $i+1$がないとき, 1, それ以外は$0$とする. $\varepsilon_i(C)$を$C$に$i+1$があり, $i$がないときに$1$, それ以外は$0$とする. \\
-  $\mathrm{wt}, f_i, e_i$は, 上記の行の場合と同様に定めれば, $\mathscr{B}_{(1^k)}$はseminomarlな$GL(n)$ crystalになる.
+  $GL(r+1)$ weight latticeを使い, $\mathrm{wt} \left( \vcenter{\hbox{\begin{ytableau} i \end{ytableau}}} \right) = e_i$ と定める.
+  さらに, seminomarl であるように $\varphi_i, \varepsilon_i$ を定める. これを $\mathscr{B}_{(1)}$ や $\mathbb{B}$ で表す.
 \end{ex}
 
 %
@@ -436,17 +453,21 @@ $\mathbb{Z} \cup \{ - \infty \} $に $- \infty < n \ ( n \in \mathbb{Z} ) $と�
 \end{df}
 
 \begin{prop}[{\cite[命題2.29]{b1}}]
-  $\mathscr{B} \otimes \mathscr{C}$はcrystalである. さらに, $\mathscr{B}, \mathscr{C}$がseminomarlなら, $\mathscr{B} \otimes \mathscr{C}$もseminomarlである. 
+  $\mathscr{B} \otimes \mathscr{C}$ はcrystalである. さらに, $\mathscr{B}, \mathscr{C}$ がseminomarlなら, $\mathscr{B} \otimes \mathscr{C}$ もseminomarlである. 
 \end{prop}
 
+\begin{prf}
+  crystal とテンソル積の定義に立ち返って, 示せば良い.
+\end{prf}
+
 \begin{df}  
-  $\mathscr{B}$と$\mathscr{C}$をルート系$\Phi$, 添字集合$I$を持つcrystalとする. \\
-  写像$ \psi : \mathscr{B} \to \mathscr{C} \sqcup \{ 0 \}$がcrystal準同型であるとは, 次を満たすときをいう. \\
+  $\mathscr{B}$ と $\mathscr{C}$ をルート系 $\Phi$, 添字集合 $I$ を持つcrystalとする. \\
+  写像 $ \psi : \mathscr{B} \to \mathscr{C} \sqcup \{ 0 \}$ がcrystal準同型であるとは, 次を満たすときをいう. \\
   1. $b \in B$ かつ $\psi(b) \in C$ であるとき, 
     \begin{enumerate}
       \item[a] $\mathrm{wt}(\psi(b)) = \mathrm{wt}(b)$
-      \item[b] $\epsilon_i(\psi(b)) = \epsilon_i(b)$ \quad for all $i \in I$
-      \item[c]$\phi_i(\psi(b)) = \phi_i(b)$ \quad for all $i \in I$
+      \item[b] $\varepsilon_i(\psi(b)) = \varepsilon_i(b)$ \quad for all $i \in I$
+      \item[c] $\varphi_i(\psi(b)) = \varphi_i(b)$ \quad for all $i \in I$
     \end{enumerate}
   2. $b, e_i b \in B$ かつ $\psi(b), \psi(e_i b) \in C$ であるとき, $\psi(e_i b) = e_i(\psi(b))$ である. \\
   3. $b, f_i b \in B$ かつ $\psi(b), \psi(f_i b) \in C$ であるとき, $\psi(f_i b) = f_i(\psi(b))$ である.
@@ -459,21 +480,75 @@ $\mathbb{Z} \cup \{ - \infty \} $に $- \infty < n \ ( n \in \mathbb{Z} ) $と�
 
 \begin{prop} [{\cite[命題2.32]{b1}}] 
   $\mathscr{B}, \mathscr{C}, \mathscr{D}$ をcrystalとする.
-  このとき, $(\mathscr{B} \otimes \mathscr{C}) \otimes \mathscr{D}$と$\mathscr{B} \otimes (\mathscr{C} \otimes \mathscr{D})$は同型になる. 
+  このとき, $(\mathscr{B} \otimes \mathscr{C}) \otimes \mathscr{D}$と$\mathscr{B} \otimes (\mathscr{C} \otimes \mathscr{D})$ は同型になる. 
 \end{prop}
 
-%
-\subsection{tableauのcrystal}
-  この節ではtableauのcrystalについて説明する. 形$(k)$や$(1^k)$のsemistandard tableauのcrystalは1.4節の最後の2つの例で述べた.
-  より一般に, semistandard tableauのcrystalについて, この節では述べる.
+\begin{prf}
+  $x \in \mathscr{B}, y \in \mathscr{C}, z \in \mathscr{D}$ とする. 
+  $(\mathscr{B} \otimes \mathscr{C}) \otimes \mathscr{D}$ から $\mathscr{B} \otimes (\mathscr{C} \otimes \mathscr{D})$ への写像を
+  $( x \otimes y) \otimes z$ から $ x \otimes ( y \otimes z)$ へ写すものとする. 
+  この写像がcrystal同型写像であることを示せば良い.
+\end{prf}
 
-  tableauのcrystalは, 組合せ論におけるYoung tableauとKashiwara crystalにおける構造を結びつけたものである.
-  Young tableauの組合せ論的性質をKashiwara crystalの視点から捉えることで, リー代数の表現論と関連付けることができる.
+%
+\subsection{tableau の crystal}
+  この節では tableau の crystal について説明する. 最初に分割と semistandard tableau を定義する. その後, 形 $(k)$ や $(1^k)$ のsemistandard tableau の crystal
+  について紹介する. 最後に, より一般に semistandard tableau の crystal について述べる.
+
+  tableau の crystal は, 組合せ論における Young tableau と Kashiwara crystal における構造を結びつけたものである.
+  Young tableauの組合せ論的性質を Kashiwara crystal の視点から捉えることで, リー代数の表現論と関連付けることができる.
   \\
   
-  $k$を正整数とし, $\lambda$を$k$の分割とする.
-  形$\lambda$で, 各成分が$n$以下のsemistandard tableu全体を$\mathscr{B_\lambda}$とする. ($n$は固定して考える. )
+  $k$ を正整数とし, $\lambda$ を $k$ の分割とする.
+  形 $\lambda$ で, 各成分が $n$ 以下のsemistandard tableu全体を $\mathscr{B_\lambda}$ とする. ($n$は固定して考える. )
 \bigskip
+
+分割と semistandard tableauについて定義する.
+
+\begin{df}
+  $k$ の分割とは, 以下を満たす正整数の組 $\lambda = (\lambda_1, \lambda_2, \cdots, \lambda_l)$ のことをいう.
+  \begin{enumerate}
+    \item $\sum_{i=1}^l \lambda_i = k $
+    \item $\lambda_1\geq \lambda_2 \geq \cdots \geq \lambda_l $
+  \end{enumerate}
+\end{df}
+
+\begin{ex}
+  $3$ の分割は, $(3), (2, 1), (1, 1, 1)$ の３つである.
+\end{ex}
+
+\begin{df}
+  $\lambda = (\lambda_1, \lambda_2, \cdots, \lambda_l)$ とする. 
+  形 $\lambda$ のsemistandard tableauとは, 次を満たす表である.
+  \begin{enumerate}
+    \item $i$ 行に $\lambda_i$ 個の正整数が左寄せに書いてある.
+    \item 各行は左から右に, 広義単調増加をしている. 
+    \item 各列は上から下に, 狭義単調増加をしている. 
+  \end{enumerate}
+\end{df}
+
+1行からなる tableauのcrystalを説明する.
+
+\begin{ex}
+  $\Lambda = \mathbb{Z}^n, n = r+1$ とする.
+  $\mathscr{B}_{(k)}$ を形 $(k)$ で, 各成分が $n$ 以下のsemistandard tableau全体とする. その元を$ R = \vcenter{\hbox{\begin{ytableau} j_1 & j_2 & \cdots & j_k \end{ytableau}}}$
+  \ (ただし, $j_1 \leq j_2 \leq \cdots \leq j_k$, $j_1, j_2, \cdots, j_k \in [n]$ )で表す. \\
+  $\mathrm{wt}(R) = (\mu_1, \mu_2, \cdots, \mu_n)$ \ (ただし, $\mu_i$ は $R$ に現れる $i$ の個数)とする. 
+  さらに, $\varphi_i(R)$ を成分 $j_1, j_2, \cdots, j_k$ 上の $i$ の数, $\varepsilon_i(R)$ を成分 $j_1, j_2, \cdots, j_k$ 上の $i + 1$ の数とする. \\
+  また, $\varphi_i(R) > 0$ なら, $f_i(R)$ を右端の $i$ を $i + 1$ に変えて得られるtableau, そうでないなら, $f_i(R) = 0$ とする.
+  同様に, $\varepsilon_i(R) > 0$ なら, $e_i(R)$ を左端の $i + 1$ を $i$ に変えて得られるtableau, そうでないなら, $e_i(R) = 0$ とする.\\
+  これにより, $\mathscr{B}_{(k)}$ はseminomarlな $GL(n)$ crystalになる.
+\end{ex}
+
+行と同様に, 1列からなる tableauのcrystalを説明する.
+
+\begin{ex}
+  $\Lambda = \mathbb{Z}^n, n = r+1$ とする.
+  $\mathscr{B}_{(1^k)}$ を形 $(1^k)$ で, 各成分が $n$ 以下のsemistandard tableau全体とする. その元を $ C =  ^{t} \vcenter{\hbox{\begin{ytableau} j_1 & j_2 & \cdots & j_k \end{ytableau}}}$
+  (ただし, $j_1 \leq j_2 \leq \cdots \leq j_k$, $j_1, j_2, \cdots, j_k \in [n]$, $^{t}$ は転置)で表す. \\
+  $\varphi_i(C)$ を $C$ の成分に $i$ があり, $i + 1$ がないとき, 1, それ以外は $0$ とする. $\varepsilon_i(C)$ を $C$ に $i + 1$ があり, $i$ がないときに $1$, それ以外は $0$ とする. \\
+  $\mathrm{wt}, f_i, e_i$ は, 上記の行の場合と同様に定めれば, $\mathscr{B}_{(1^k)}$ はseminomarlな $GL(n)$ crystalになる.
+\end{ex}
 
 \begin{df}
   写像 $RR : \mathscr{B}_{(k)} \to \mathbb{B}^{ \otimes k}$ を次のように定める. 
@@ -487,20 +562,22 @@ $\mathbb{Z} \cup \{ - \infty \} $に $- \infty < n \ ( n \in \mathbb{Z} ) $と�
 \end{df}  
 
 \begin{prop} [{\cite[命題3.1]{b1}}] 
-  写像 $RR$は$\mathscr{B}_{(k)}$から$\mathbb{B}^{ \otimes k}$への準同型である.
+  写像 $RR$ は $\mathscr{B}_{(k)}$ から $\mathbb{B}^{ \otimes k}$ への準同型である.
 \end{prop}
 
 \begin{df}
-  定義した写像 $R \to RR(R)$を、すべての形 $\lambda$ のsemistandard tableu $T$ への写像に以下のように拡張する. \\
-  この写像も $T \to RR(T)$ と表し, $RR(T)$ を$T$ の各行を順に読み出し, その順序は下から上に向かって行を取るようにする.
-  これを\textit{row reading}という.
+  定義した写像 $RR : \mathscr{B}_{(k)} \to \mathbb{B}^{ \otimes k}$ の $\mathscr{B}_\lambda$
+  への拡大を以下のように定義する. \\
+  この拡大された写像も $RR$ と表す. 形 $\lambda$ の semistandard tableu $T$ に対し, 
+  $RR(T)$ を $T$ の各行を順に読み出し, その順序は下から上に向かって行を取るようにする.
+  これを \textit{row reading} という.
 \end{df} 
  
 \begin{ex}
-  $ T = ^{t} \vcenter{\hbox{\begin{ytableau} i_1 & i_2 & \cdots & i_k \end{ytableau}} }$とする. このとき,
+  $ T = ^{t} \vcenter{\hbox{\begin{ytableau} i_1 & i_2 & \cdots & i_k \end{ytableau}} }$ とする. このとき,
 $$ 
 RR(T) = \vcenter{\hbox{\begin{ytableau}  i_k \end{ytableau}}} \otimes 
-        \vcenter{\hbox{\begin{ytableau}  \cdots \end{ytableau}}} \otimes
+        \cdots \otimes
         \vcenter{\hbox{\begin{ytableau}  i_2 \end{ytableau}}} \otimes
         \vcenter{\hbox{\begin{ytableau}  i_1 \end{ytableau}}} 
 $$
@@ -541,24 +618,29 @@ $$
 \end{ex}
 
 \begin{df}
-  $i$行に$i$の成分が入る形$\lambda$のpartial tableauをYamanouchi tableauといい, $u_\lambda$で表す.
+  $i$ 行の成分が全て $i$ である形 $\lambda$ の semistandard tableau を Yamanouchi tableau といい, $u_\lambda$ で表す.
 \end{df}
 
 \begin{thm}[{\cite[定理3.2]{b1}}] 
-  $\lambda$を長さは$n$以下の$k$の分割とする.
-  このとき, $RR(\mathscr{B}_{\lambda})$は,$\mathbb{B}^{\otimes k}$の連結成分になる, 
-  さらに, 一意的なhigest weight元$RR(u_\lambda)$を持つ.
+  $\lambda$ を長さは $n$ 以下の $k$ の分割とする.
+  このとき, $RR(\mathscr{B}_{\lambda})$ は, $\mathbb{B}^{\otimes k}$ の連結成分になる, 
+  さらに, 一意的なhighest weight元 $RR(u_\lambda)$ を持つ.
 \end{thm}
+
+\begin{prf}
+  $RR(\mathscr{B}_{\lambda}) \sqcup \{ 0 \}$ が $f_i, e_i$ に関して閉じていることと $RR(u_\lambda)$
+  が一意的なhighest weight元であることを示すことで, $\mathbb{B}^{\otimes k}$ の連結成分であることを導けば良い.
+\end{prf}
 
 \begin{ex}
   $n = 2, k= 3$とする.
-  長さ$2$以下の$3$の分割は, $(3), (2, 1)$である. また, $GL(2)$ crystal $\mathbb{B}$は,
+  長さ $2$ 以下の $3$ の分割は, $(3), (2, 1)$ である. また, $GL(2)$ crystal $\mathbb{B}$ は,
   \[
   \vcenter{\hbox{\begin{ytableau} 1 \end{ytableau}}}
   \xrightarrow{1}
   \vcenter{\hbox{\begin{ytableau} 2 \end{ytableau}}}
   \]
-  である. $GL(2)$ crystal $\mathbb{B}^{\otimes 3}$は不連結で, 以下の3つのcrystal graphを持つ.
+  である. $GL(2)$ crystal $\mathbb{B}^{\otimes 3}$ は非連結で, 以下の3つのcrystal graphを持つ.
 
   \[
   \vcenter{\hbox{\begin{ytableau} 1 \end{ytableau}}} \otimes
@@ -598,12 +680,12 @@ $$
   \vcenter{\hbox{\begin{ytableau} 1 \end{ytableau}}}
   \]
 
-  1つ目は$\mathscr{B}_{(3)}$, 2つ目と3つ目は$\mathscr{B}_{(2, 1)}$に同型である.
+  1つ目は $\mathscr{B}_{(3)}$, 2つ目と3つ目は $\mathscr{B}_{(2, 1)}$ に同型である.
 \end{ex}
 
 \begin{ex}
 
-  $n = 3, k = 2$ とする。長さ$3$以下の$2$の分割は、$(2), (1, 1)$である。また、$GL(3)$ crystal $\mathbb{B}$は,
+  $n = 3, k = 2$ とする。長さ $3$ 以下の $2$ の分割は、$(2), (1, 1)$ である。また、$GL(3)$ crystal $\mathbb{B}$ は,
 
   \[
   \begin{tikzcd}
@@ -613,7 +695,7 @@ $$
   \end{tikzcd}
   \]
 
-  である. $GL(3)$ crystal $\mathbb{B}^{\otimes 2}$は不連結で, 以下の2つのcrystal graphを持つ.
+  である. $GL(3)$ crystal $\mathbb{B}^{\otimes 2}$は非連結で, 以下の2つのcrystal graphを持つ.
 
   \[
   \begin{tikzcd}
@@ -634,25 +716,25 @@ $$
   \end{tikzcd}
   \]
 
-1つ目は$\mathscr{B}_{(2)}$, 2つ目は$\mathscr{B}_{(1, 1)}$に同型である.
+1つ目は $\mathscr{B}_{(2)}$, 2つ目は $\mathscr{B}_{(1, 1)}$ に同型である.
 \end{ex} 
 
 \begin{re}
   \begin{enumerate}
     \item[]
-    \item $\mathbb{B}^{\otimes k}$は, $\mathscr{B}_{\lambda} \ (\lambda \vdash k)$の直和に同型であることが知られている.
-    \item $\mathbb{B}^{\otimes k}$の元の$f_i$の値を求める道具として, signature ruleがある. これを使うと, テンソル積の定義に戻らなくとも, 
+    \item $\mathbb{B}^{\otimes k}$ は, $\mathscr{B}_{\lambda} \ (\lambda \vdash k)$ の直和に同型であることが知られている.
+    \item $\mathbb{B}^{\otimes k}$ の元の $f_i$ の値を求める道具として, signature ruleがある. これを使うと, テンソル積の定義に戻らなくとも, 
     直感的に値を求めることができる. 参考文献\cite{b1}の2.4節を参照されたい.
   \end{enumerate}
 \end{re}
 
 \begin{ex}
   $k= 4$とする.
-  $(2, 1, 1)$は$4$の分割である. $GL(3)$ crystal $\mathscr{B}_{(2, 1, 1)}$は, 以下の1つのtableuからなる. \\
+  $(2, 1, 1)$ は $4$ の分割である. $GL(3)$ crystal $\mathscr{B}_{(2, 1, 1)}$ は, 以下の1つのtableuからなる. \\
   \[
     \vcenter{\hbox{\begin{ytableau} 1 & 1 \\ 2 \\ 3 \end{ytableau}}} 
   \]
-  一方, $GL(4)$ crystal $\mathscr{B}_{(2, 1, 1)}$は, 以下のcrystal graphを持つ.
+  一方, $GL(4)$ crystal $\mathscr{B}_{(2, 1, 1)}$ は, 以下のcrystal graphを持つ.
   \[
     \begin{tikzcd}
       \vcenter{\hbox{\begin{ytableau} 1 \amp 1 \\ 2 \\ 3 \end{ytableau}}} \arrow[r, "3"] \arrow[d, "1"] & 
@@ -668,17 +750,17 @@ $$
       \vcenter{\hbox{\begin{ytableau} 1 \amp 3 \\ 2 \\ 3 \end{ytableau}}} \arrow[r, "3"] &
       \vcenter{\hbox{\begin{ytableau} 1 \amp 4 \\ 2 \\ 3 \end{ytableau}}} \arrow[r, "3"] &
       \vcenter{\hbox{\begin{ytableau} 1 \amp 4 \\ 2 \\ 4 \end{ytableau}}} \arrow[r, "2"] & 
-      \vcenter{\hbox{\begin{ytableau} 1 \amp 4 \\ 3 \\ 4 \end{ytableau}}} \arrow[r, "2"] &
+      \vcenter{\hbox{\begin{ytableau} 1 \amp 4 \\ 3 \\ 4 \end{ytableau}}} \arrow[r, "1"] &
       \vcenter{\hbox{\begin{ytableau} 2 \amp 4 \\ 3 \\ 4 \end{ytableau}}} \\
     \end{tikzcd}
   \]
-  定理12から, $\mathscr{B}_\lambda$は連結である.
+  定理12から, $\mathscr{B}_\lambda$ は連結である.
 \end{ex}
 
 \begin{thebibliography}{99}
   \bibitem{b1} Daniel Bump, Anne Schilling「CRYSTAL BASES Representations and Combinatorics」World Scientific, 2017.
   \bibitem{b2} Daniel Bump「Lie Groups」Springer, 2013.
-  \bibitem{b3} ニコラス ブルバキ, 杉浦 光夫「ブルバキ数学原論 リー群とリー環3」東京書籍, 1986.
+  \bibitem{b3} Nicolas Bourbaki (杉浦 光夫 訳)「ブルバキ数学原論 リー群とリー環3」東京書籍, 1986.
 \end{thebibliography}
 
 %
